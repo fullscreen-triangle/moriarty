@@ -1,0 +1,74 @@
+[
+  {
+    "Lane": 1,
+    "Total length": "400.00 m",
+    "Radius": "36.80 m",
+    "Semi-circle length": "115.61 m",
+    "Delta": "0.00 m",
+    "Angle": "0.00°"
+  },
+  {
+    "Lane": 2,
+    "Total length": "407.67 m",
+    "Radius": "38.02 m",
+    "Semi-circle length": "119.44 m",
+    "Delta": "3.83 m",
+    "Angle": "5.78°"
+  },
+  {
+    "Lane": 3,
+    "Total length": "415.33 m",
+    "Radius": "39.24 m",
+    "Semi-circle length": "123.28 m",
+    "Delta": "7.67 m",
+    "Angle": "11.19°"
+  },
+  {
+    "Lane": 4,
+    "Total length": "423.00 m",
+    "Radius": "40.46 m",
+    "Semi-circle length": "127.11 m",
+    "Delta": "11.50 m",
+    "Angle": "16.28°"
+  },
+  {
+    "Lane": 5,
+    "Total length": "430.66 m",
+    "Radius": "41.68 m",
+    "Semi-circle length": "130.94 m",
+    "Delta": "15.33 m",
+    "Angle": "21.08°"
+  },
+  {
+    "Lane": 6,
+    "Total length": "438.33 m",
+    "Radius": "42.90 m",
+    "Semi-circle length": "134.77 m",
+    "Delta": "19.16 m",
+    "Angle": "25.60°"
+  },
+  {
+    "Lane": 7,
+    "Total length": "446.00 m",
+    "Radius": "44.12 m",
+    "Semi-circle length": "138.61 m",
+    "Delta": "23.00 m",
+    "Angle": "29.86°"
+  },
+  {
+    "Lane": 8,
+    "Total length": "453.66 m",
+    "Radius": "45.34 m",
+    "Semi-circle length": "142.44 m",
+    "Delta": "26.83 m",
+    "Angle": "33.90°"
+  },
+  {
+    "Lane": 9,
+    "Total length": "461.33 m",
+    "Radius": "46.56 m",
+    "Semi-circle length": "146.27 m",
+    "Delta": "30.66 m",
+    "Angle": "37.73°"
+  }
+]

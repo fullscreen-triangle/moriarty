@@ -1,0 +1,173 @@
+{
+    "Hand":{
+        "Definition":"WJC-KNU2",
+        "Mass":0.474,
+        "CM prox":39.974,
+        "CM dist":39.026,
+        "Rg CM":23.463,
+        "Rg prox":46.373,
+        "Rg dist":45.583
+    },
+    "Forearm":{
+        "Definition":"EJC-STYL",
+        "Mass":1.264,
+        "CM prox":33.97,
+        "CM dist":45.03,
+        "Rg CM":23.937,
+        "Rg prox":41.554,
+        "Rg dist":51.113
+    },
+    "Upper arm":{
+        "Definition":"SJC-EJC",
+        "Mass":2.212,
+        "CM prox":34.444,
+        "CM dist":44.556,
+        "Rg CM":25.438,
+        "Rg prox":42.818,
+        "Rg dist":50.955
+    },
+    "Forearm hand":{
+        "Definition":"EJC-STYL",
+        "Mass":1.738,
+        "CM prox":53.878,
+        "CM dist":25.122,
+        "Rg CM":36.972,
+        "Rg prox":65.333,
+        "Rg dist":44.635
+    },
+    "Total arm":{
+        "Definition":"SJC-STYL",
+        "Mass":3.95,
+        "CM prox":41.87,
+        "CM dist":37.13,
+        "Rg CM":29.072,
+        "Rg prox":50.955,
+        "Rg dist":47.084
+    },
+    "Foot":{
+        "Definition":"LMAL-MT2",
+        "Mass":1.1455,
+        "CM prox":39.5,
+        "CM dist":39.5,
+        "Rg CM":37.525,
+        "Rg prox":54.51,
+        "Rg dist":54.51
+    },
+    "Leg":{
+        "Definition":"KJC-MMAL",
+        "Mass":3.6735,
+        "CM prox":34.207,
+        "CM dist":44.793,
+        "Rg CM":23.858,
+        "Rg prox":41.712,
+        "Rg dist":50.797
+    },
+    "Thigh":{
+        "Definition":"GTR-KJC",
+        "Mass":7.9,
+        "CM prox":34.207,
+        "CM dist":44.793,
+        "Rg CM":25.517,
+        "Rg prox":42.66,
+        "Rg dist":51.587
+    },
+    "Head neck":{
+        "Definition":"C7T1-RIB1EAR",
+        "Mass":6.399,
+        "CM prox":79.0,
+        "CM dist":0.0,
+        "Rg CM":39.105,
+        "Rg prox":9.164,
+        "Rg dist":0.0
+    },
+    "Thorax":{
+        "Definition":"C7T1-T12L1-DIAP",
+        "Mass":17.064,
+        "CM prox":64.78,
+        "CM dist":14.22,
+        "Rg CM":0.0,
+        "Rg prox":0.0,
+        "Rg dist":0.0
+    },
+    "Abdomen":{
+        "Definition":"T12L1-GTR",
+        "Mass":10.981,
+        "CM prox":34.76,
+        "CM dist":44.24,
+        "Rg CM":0.0,
+        "Rg prox":0.0,
+        "Rg dist":0.0
+    },
+    "Pelvis":{
+        "Definition":"L4L5-GTR",
+        "Mass":11.218,
+        "CM prox":8.295,
+        "CM dist":70.705,
+        "Rg CM":0.0,
+        "Rg prox":0.0,
+        "Rg dist":0.0
+    },
+    "Trunk":{
+        "Definition":"GTR-SJC",
+        "Mass":39.263,
+        "CM prox":39.5,
+        "CM dist":39.5,
+        "Rg CM":0.0,
+        "Rg prox":0.0,
+        "Rg dist":0.0
+    },
+    "Trunk head neck":{
+        "Definition":"GTR-SJC",
+        "Mass":45.662,
+        "CM prox":52.14,
+        "CM dist":26.86,
+        "Rg CM":39.737,
+        "Rg prox":65.57,
+        "Rg dist":47.953
+    },
+    "HAT":{
+        "Definition":"GTR-SJC",
+        "Mass":53.562,
+        "CM prox":49.454,
+        "CM dist":29.546,
+        "Rg CM":39.184,
+        "Rg prox":63.042,
+        "Rg dist":49.059
+    },
+    "Foot leg":{
+        "Definition":"KJC-MMAL",
+        "Mass":4.819,
+        "CM prox":47.874,
+        "CM dist":31.126,
+        "Rg CM":32.864,
+        "Rg prox":58.065,
+        "Rg dist":45.188
+    },
+    "Total leg":{
+        "Definition":"GTR-MMAL",
+        "Mass":12.719,
+        "CM prox":35.313,
+        "CM dist":43.687,
+        "Rg CM":25.754,
+        "Rg prox":44.24,
+        "Rg dist":51.35
+    },
+    "Thorax abdomen":{
+        "Definition":"C7T1-L4L5",
+        "Mass":28.045,
+        "CM prox":49.77,
+        "CM dist":29.23,
+        "Rg CM":0.0,
+        "Rg prox":0.0,
+        "Rg dist":0.0
+    },
+    "Abdomen pelvis":{
+        "Definition":"T12L1-GTR",
+        "Mass":22.199,
+        "CM prox":21.33,
+        "CM dist":57.67,
+        "Rg CM":0.0,
+        "Rg prox":0.0,
+        "Rg dist":0.0
+    }
+}

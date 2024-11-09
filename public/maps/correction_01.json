@@ -1,0 +1,77 @@
+{
+    "Wind Data": [
+      {
+        "Wind Direction (θ°)": 0,
+        "Lane 1": {"Time (s)": 43.23, "Correction": "+0.08"},
+        "Lane 4": {"Time": 43.13, "Correction": "+0.10"},
+        "Lane 8": {"Time": 43.03, "Correction": "+0.14"}
+      },
+      {
+        "Wind Direction (θ°)": 30,
+        "Lane 1": {"Time (s)": 43.22, "Correction": "+0.07"},
+        "Lane 4": {"Time": 43.13, "Correction": "+0.10"},
+        "Lane 8": {"Time": 43.04, "Correction": "+0.15"}
+      },
+      {
+        "Wind Direction (θ°)": 60,
+        "Lane 1": {"Time (s)": 43.19, "Correction": "+0.04"},
+        "Lane 4": {"Time": 43.09, "Correction": "+0.06"},
+        "Lane 8": {"Time": 43.01, "Correction": "+0.12"}
+      },
+      {
+        "Wind Direction (θ°)": 90,
+        "Lane 1": {"Time (s)": 43.18, "Correction": "+0.03"},
+        "Lane 4": {"Time": 43.06, "Correction": "+0.03"},
+        "Lane 8": {"Time": 42.97, "Correction": "+0.08"}
+      },
+      {
+        "Wind Direction (θ°)": 120,
+        "Lane 1": {"Time (s)": 43.17, "Correction": "+0.02"},
+        "Lane 4": {"Time": 43.04, "Correction": "+0.01"},
+        "Lane 8": {"Time": 42.92, "Correction": "+0.03"}
+      },
+      {
+        "Wind Direction (θ°)": 150,
+        "Lane 1": {"Time (s)": 43.18, "Correction": "+0.03"},
+        "Lane 4": {"Time": 43.03, "Correction": "0.00"},
+        "Lane 8": {"Time": 42.88, "Correction": "-0.01"}
+      },
+      {
+        "Wind Direction (θ°)": 180,
+        "Lane 1": {"Time (s)": 43.19, "Correction": "+0.04"},
+        "Lane 4": {"Time": 43.02, "Correction": "-0.01"},
+        "Lane 8": {"Time": 42.85, "Correction": "-0.04"}
+      },
+      {
+        "Wind Direction (θ°)": 210,
+        "Lane 1": {"Time (s)": 43.18, "Correction": "+0.03"},
+        "Lane 4": {"Time": 43.01, "Correction": "-0.02"},
+        "Lane 8": {"Time": 42.82, "Correction": "-0.07"}
+      },
+      {
+        "Wind Direction (θ°)": 240,
+        "Lane 1": {"Time (s)": 43.17, "Correction": "+0.02"},
+        "Lane 4": {"Time": 43.02, "Correction": "-0.01"},
+        "Lane 8": {"Time": 42.82, "Correction": "-0.07"}
+      },
+      {
+        "Wind Direction (θ°)": 270,
+        "Lane 1": {"Time (s)": 43.17, "Correction": "+0.02"},
+        "Lane 4": {"Time": 43.03, "Correction": "+0.00"},
+        "Lane 8": {"Time": 42.86, "Correction": "-0.03"}
+      },
+      {
+        "Wind Direction (θ°)": 300,
+        "Lane 1": {"Time (s)": 43.19, "Correction": "+0.04"},
+        "Lane 4": {"Time": 43.07, "Correction": "+0.04"},
+        "Lane 8": {"Time": 42.92, "Correction": "+0.03"}
+      },
+      {
+        "Wind Direction (θ°)": 330,
+        "Lane 1": {"Time (s)": 43.21, "Correction": "+0.06"},
+        "Lane 4": {"Time": 43.11, "Correction": "+0.08"},
+        "Lane 8": {"Time": 42.99, "Correction": "+0.10"}
+      }
+    ]
+  }
+  
