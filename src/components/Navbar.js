@@ -92,10 +92,10 @@ const Navbar = () => {
       >
       <nav className="flex items-center justify-center">
         <CustomLink className="mr-4" href="/" title="Home" />
-        <CustomLink className="mr-4" href="/legality" title="Legality" />
-        <CustomLink className="mr-4" href="/dimensions" title="Dimensions" />
         <CustomLink className="mr-4" href="/equilibrium" title="Equilibrium" />
         <CustomLink className="mr-4" href="/anthropometry" title="Anthropometry" />
+        <CustomLink className="mr-4" href="/legality" title="Legality" />
+        <CustomLink className="mr-4" href="/dimensions" title="Dimensions" />
         <CustomLink className="mr-4" href="/puchheim" title="Puchheim" />
 
        
@@ -142,10 +142,10 @@ const Navbar = () => {
       >
       <nav className="flex items-center justify-center flex-col">
         <CustomMobileLink toggle={handleClick} className="mr-4 lg:m-0 lg:my-2" href="/" title="Home" />
-        <CustomMobileLink toggle={handleClick} className="mr-4 lg:m-0 lg:my-2" href="/legality" title="Legality" />
-        <CustomMobileLink toggle={handleClick} className="mr-4 lg:m-0 lg:my-2" href="/dimensions" title="Dimensions" />
         <CustomMobileLink toggle={handleClick} className="mx-4 lg:m-0 lg:my-2" href="/equilibrium" title="Equilibrium" />
         <CustomMobileLink toggle={handleClick} className="mx-4 lg:m-0 lg:my-2" href="/anthropometry" title="Anthropometry" />
+        <CustomMobileLink toggle={handleClick} className="mr-4 lg:m-0 lg:my-2" href="/legality" title="Legality" />
+        <CustomMobileLink toggle={handleClick} className="mr-4 lg:m-0 lg:my-2" href="/dimensions" title="Dimensions" />
         <CustomMobileLink toggle={handleClick} className="mx-4 lg:m-0 lg:my-2" href="/puchheim" title="Puchheim" />
 
       </nav>

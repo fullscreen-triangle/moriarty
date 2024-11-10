@@ -15,15 +15,13 @@ import { videos } from '@/lib/videoData.js';
 
 
 
+
 const Combinedbrush = dynamic(
   () => import('@/components/athletes/brush/Combinedbrush'),
   {loading: () => <AnimatedLoader className="w-8 h-8 animate-pulse mx-auto mb-2" />, ssr: false }
 )
 
-const ClusterForceGraph = dynamic(
-  () => import('@/components/athletes/ClusterForceGraph'),
-  { loading: () => <AnimatedLoader className="w-8 h-8 animate-pulse mx-auto mb-2" />,ssr: false }
-)
+
 
 const StrategyAnalysis = dynamic(
   () => import('@/components/championship/StrategyAnalysis'),
@@ -90,11 +88,14 @@ export default function Equilibrium() {
                   className="py-12"
                 >
 
-            <div className="my-8 xl:mb-16 xl:mt-12">
-                    <img
+                  <div className="my-8 xl:mb-16 xl:mt-12">
+                    <Image
                       className="hidden w-full dark:block"
-                      src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-showcase-dark.svg"
-                      alt=""
+                      src={"/images/technical/synchronization.png"}
+                      alt="synchronization"
+                      width={800}
+                      height={700}
+                      priority={true}
                     />
                   </div>
 
@@ -110,18 +111,26 @@ export default function Equilibrium() {
 
                 </AnimatedSection>
 
-                <section className="py-20 bg-white">
-                    <div className="container mx-auto px-4">
-                      <h2>About Us</h2>
-                      <p>Some content about your company...</p>
-                      <div className="mt-8">
-                        <LazyVideoPlayer 
+
+                {isClient && (
+                  <>
+                    <AnimatedSection 
+                      animation="slideIn" 
+                      duration={1} 
+                      className="py-12"
+                    >
+                      <Suspense fallback={<AnimatedLoader />}>
+                      <section className="flex justify-center items-center h-full w-full">
+                      <LazyVideoPlayer 
                           videoSources={videos.introVideo.sources}
                           title={videos.introVideo.title}
-                        />
-                      </div>
-                    </div>
-                  </section>
+                        />                      </section>
+                      </Suspense>
+                    </AnimatedSection>
+
+                   
+                  </>
+                )}
 
                 <p className='font-medium mx-0 my-8 border-0 p-0 align-baseline justify-center items-center' style={{ lineHeight: '1.7' }}>
                   For a few years, the Kingston Championship was a blue ribbon event and rightfully so. This was an anomaly and the chances 
@@ -158,6 +167,28 @@ export default function Equilibrium() {
                     with each step. 
                   </p>
 
+
+
+                {isClient && (
+                  <>
+                    <AnimatedSection 
+                      animation="slideIn" 
+                      duration={1} 
+                      className="py-12"
+                    >
+                      <Suspense fallback={<AnimatedLoader />}>
+                      <section className="flex justify-center items-center h-full w-full">
+                      <LazyVideoPlayer 
+                          videoSources={videos.processVideo.sources}
+                          title={videos.processVideo.title}
+                        />                      </section>
+                      </Suspense>
+                    </AnimatedSection>
+
+                   
+                  </>
+                )}
+
                   <p className='font-medium mx-0 my-8 border-0 p-0 align-baseline justify-center items-center' style={{ lineHeight: '1.7' }}>
                     What followed next is what we call a miracle. It so happened, that Usain Bolt, has a stance phase time imbalance asymmetry, which sees his left leg cover 30% more 
                     in distance than his right leg. Before that event, only two human beings had ever managed to run below 9.71s, with these events 
@@ -170,56 +201,6 @@ export default function Equilibrium() {
                     and his left leg to progresively increase distance covered cumulating in a respectable sum of 41 steps.
                     </p>
 
-                    <div 
-          className={`relative my-6 transition-all duration-300 ease-in-out ${
-            isFullscreen 
-              ? 'fixed inset-0 z-50 bg-black p-4' 
-              : 'h-[480px] w-full'
-          }`}
-        >
-          <Suspense fallback={
-            <div className="w-full h-full bg-black animate-pulse flex items-center justify-center">
-              Loading video analysis...
-            </div>
-          }>
-            <div className={`relative ${isFullscreen ? 'h-full' : 'h-[480px]'}`}>
-              <MLVideoPlayer
-                videoSources={videoSources}
-                onLoadComplete={handleVideoLoadComplete}
-              />
-              
-              {!isFullscreen && videoLoaded && (
-                <button
-                  onClick={handleEnterFullscreen}
-                  className="absolute bottom-4 right-4 p-2 bg-black/50 hover:bg-black/70 rounded-full text-white transition-colors"
-                >
-                  <svg 
-                    className="w-6 h-6" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
-                    <path 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      strokeWidth={2} 
-                      d="M4 8V4m0 0h4M4 4l5 5m11-5v4m0-4h-4m4 4l-5-5m-11 13v4m0-4h4m-4 4l5-5m11 5v-4m0 4h-4m4-4l-5 5"
-                    />
-                  </svg>
-                </button>
-              )}
-              
-              {isFullscreen && (
-                <button
-                  onClick={handleExitFullscreen}
-                  className="absolute top-4 right-4 p-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors"
-                >
-                  <X className="w-6 h-6" />
-                </button>
-              )}
-            </div>
-          </Suspense>
-        </div>
 
                     <p className='font-medium mx-0 my-8 border-0 p-0 align-baseline justify-center items-center' style={{ lineHeight: '1.7' }}>
                       Other than the one time mentioned before, nothing of significance happens at most tournaments, even more for 400m. In an event where 
@@ -235,8 +216,24 @@ export default function Equilibrium() {
                       How can one recreate the Miracle in Berlin in the context of 400m ?    
                     </p>
 
+                    {isClient && (
+                  <>
+                    <AnimatedSection 
+                      animation="slideIn" 
+                      duration={1} 
+                      className="py-12"
+                    >
+                      <Suspense fallback={<AnimatedLoader />}>
+                      <section className="flex justify-center items-center h-full w-full">
+                       <Combinedbrush/></section>
+                      </Suspense>
+                    </AnimatedSection>
+
+                   
+                  </>
+                )}
+
                       <section  className="container mx-auto items-center justify-center">
-                        <ClusterForceGraph dataUrl={'/json/senior/olympic_athlete_cluster_analysis.json'}/>
                       </section>
            
                         <p className="font-medium ">
@@ -244,24 +241,24 @@ export default function Equilibrium() {
                         increase in unit distance covered by his left leg per cycle. What would Bolt be in our memories, if it were not Gay and Powell ? Due to a deeply entranched primal instict, humans subconsiously synchronise their movements when performing group activities. The synchronisation of step frequency amoung the three, that is, the fastest possible number of steps/minute is what laid the red carpet for Bolt to reach 9.58s. Bolt has a massive height advantage, which rewards him with a 53cm lead over his average height fellows. If one is that tall and is stepping that fast, no one should be surprised if they happen to break a world record. That was the last time Usain Bolt ever ran below 9.71s.
                         </p>
 
-                    <p className="my-4 font-medium">
-                    Lazar and Rosen were the first to formalise the properties of rank-order tournaments using first order approaches which substitute incentive constraints with the orders for the contestants maximazation problems. Literature on the topic does not deliver sufficient conditions for operation of the first order approach since the objective function 
-                    attributed to each contestant is only relevant dependant on endogenously determined prizes by the tournament designer. The objective function depends on the choice of the prize by the contestant. Lets consider a tournament organised between risk-neutral and zero reservation agents. In the first round, the principal decides on the prizes for the winner and loser. In the second round, the potential wins are observed by the agents before the competition. When an agent chooses to exert an exact amount of effort/ouput, the output accrues to the principal. For the principal, the objective is to maximise profit, which is realised only when the agent with the highest output is declared winner of the tournament and so the principal has to regard the incentive constraint for agents with the ability to choose, that is, win the tournament.  
-                    </p>
+                          <p className="my-4 font-medium">
+                          Lazar and Rosen were the first to formalise the properties of rank-order tournaments using first order approaches which substitute incentive constraints with the orders for the contestants maximazation problems. Literature on the topic does not deliver sufficient conditions for operation of the first order approach since the objective function 
+                          attributed to each contestant is only relevant dependant on endogenously determined prizes by the tournament designer. The objective function depends on the choice of the prize by the contestant. Lets consider a tournament organised between risk-neutral and zero reservation agents. In the first round, the principal decides on the prizes for the winner and loser. In the second round, the potential wins are observed by the agents before the competition. When an agent chooses to exert an exact amount of effort/ouput, the output accrues to the principal. For the principal, the objective is to maximise profit, which is realised only when the agent with the highest output is declared winner of the tournament and so the principal has to regard the incentive constraint for agents with the ability to choose, that is, win the tournament.  
+                          </p>
 
 
-                    <p className="my-4 font-medium">
-                    The most crucial aspect of any rating system requires the fundamental condition that it consist of n-players, for a two player ranking game is a subclass of zero-sum games 
-                    where no relationships hold for ranking. Any tournament with a constant payoff in all outcomes transforms into a constant-sum game with the inclusion of an additional player to absorb stray payoffs. Finding common solutions for ranking games through computation of Nash equilibriums is untenable and use of comparitive ratios based on the von-Neumann-Morgensten utility theorem which support the idea that when agents make rational choices in uncertain conditions, all decisions made are pointed at maximising the expected value of some cardinal utility function. The (TRP, Tournament Performance Rating) Elo rating system, which would be the most obvious choice for dating apps, assigns initial numerical ratings and updates them based on performance over a time period. Every time an agent scores against an opponent, their rating increases by the difference between the expected Elo rating score and the actual score. The cumulative nature of the ratings does not fully represent an agent's current performance level and would remain unchanged despite any spectacular performance by an agent.  
-                    </p>
+                        <p className="my-4 font-medium">
+                        The most crucial aspect of any rating system requires the fundamental condition that it consist of n-players, for a two player ranking game is a subclass of zero-sum games 
+                        where no relationships hold for ranking. Any tournament with a constant payoff in all outcomes transforms into a constant-sum game with the inclusion of an additional player to absorb stray payoffs. Finding common solutions for ranking games through computation of Nash equilibriums is untenable and use of comparitive ratios based on the von-Neumann-Morgensten utility theorem which support the idea that when agents make rational choices in uncertain conditions, all decisions made are pointed at maximising the expected value of some cardinal utility function. The (TRP, Tournament Performance Rating) Elo rating system, which would be the most obvious choice for dating apps, assigns initial numerical ratings and updates them based on performance over a time period. Every time an agent scores against an opponent, their rating increases by the difference between the expected Elo rating score and the actual score. The cumulative nature of the ratings does not fully represent an agent's current performance level and would remain unchanged despite any spectacular performance by an agent.  
+                        </p>
 
-                    <p className="my-4 font-medium">
-                    Ranking athletes in a tournament can be defined as n-agent normal-form ranking game with expected wins that outbid individual rankings to von-Neumann-Morgenstein cardinal utility. Shoham et al, provided matching upper and lower bounds for three comperative ratios, relating to the following solutions: the price of cautiousness, mediation values and enforcement value. An agent is expected to optimise the ratio between the minimum payoff in a Nash equilibrium and their security levels, the ratio between the obtainable rudimentary gains and the best Nash equilibrium and the ratio between the said gains and best correlated equilibrium.
-                    </p>
+                        <p className="my-4 font-medium">
+                        Ranking athletes in a tournament can be defined as n-agent normal-form ranking game with expected wins that outbid individual rankings to von-Neumann-Morgenstein cardinal utility. Shoham et al, provided matching upper and lower bounds for three comperative ratios, relating to the following solutions: the price of cautiousness, mediation values and enforcement value. An agent is expected to optimise the ratio between the minimum payoff in a Nash equilibrium and their security levels, the ratio between the obtainable rudimentary gains and the best Nash equilibrium and the ratio between the said gains and best correlated equilibrium.
+                        </p>
 
-                    <h2 className="mb-4 text-lg font-bold uppercase text-dark/75 dark:text-light/75">
-                      Single Sprinter Model
-                    </h2>
+                        <h2 className="mb-4 text-lg font-bold uppercase text-dark/75 dark:text-light/75">
+                          Single Sprinter Model
+                        </h2>
 
   
 
@@ -276,15 +273,7 @@ export default function Equilibrium() {
               </div>
               </section>
 
-              <div className="h-auto max-w-full">
-              <Image
-                src={geometry}
-                alt="CodeBucks"
-                className="h-auto w-full"
-                sizes="100vw"
-                priority
-              />
-            </div>
+           
 
 
 

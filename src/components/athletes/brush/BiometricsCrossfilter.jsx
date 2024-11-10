@@ -4,7 +4,6 @@ import crossfilter from 'crossfilter2';
 import * as d3 from 'd3';
 import Globe from 'react-globe.gl';
 
-// Shared chart component that handles D3 rendering
 const D3Chart = ({ 
   dimension, 
   group, 
@@ -12,8 +11,8 @@ const D3Chart = ({
   width = 400,
   height = 300,
   margin = { top: 20, right: 20, bottom: 30, left: 40 },
-  xScale,
-  yScale,
+  xScale: xScaleProps,
+  yScale: yScaleProps,
   title,
   xAxisLabel,
   yAxisLabel
@@ -37,43 +36,106 @@ const D3Chart = ({
     const chartWidth = width - margin.left - margin.right;
     const chartHeight = height - margin.top - margin.bottom;
 
-    // Add title
-    svg.append("text")
-      .attr("x", width / 2)
-      .attr("y", margin.top / 2)
-      .attr("text-anchor", "middle")
-      .style("font-size", "16px")
-      .text(title);
+    // Ensure we have valid data
+    if (!data || data.length === 0) return;
 
-    // Add axes
-    const xAxis = d3.axisBottom(xScale);
-    const yAxis = d3.axisLeft(yScale);
+    // Create scales based on data if not provided
+    let xScale = xScaleProps;
+    let yScale = yScaleProps;
 
-    g.append("g")
-      .attr("class", "x-axis")
-      .attr("transform", `translate(0,${chartHeight})`)
-      .call(xAxis);
-
-    g.append("g")
-      .attr("class", "y-axis")
-      .call(yAxis);
-
-    // Add axis labels if provided
-    if (xAxisLabel) {
-      g.append("text")
-        .attr("x", chartWidth / 2)
-        .attr("y", chartHeight + margin.bottom)
-        .attr("text-anchor", "middle")
-        .text(xAxisLabel);
+    // If scales are not provided or invalid, create default ones based on type
+    if (!xScale || typeof xScale.domain !== 'function') {
+      switch (type) {
+        case 'pie':
+          xScale = d3.scaleLinear()
+            .domain([0, d3.max(data, d => d.value)])
+            .range([0, 2 * Math.PI]);
+          break;
+        case 'row':
+          xScale = d3.scaleLinear()
+            .domain([0, d3.max(data, d => d.value)])
+            .range([0, chartWidth]);
+          break;
+        default:
+          xScale = d3.scaleLinear()
+            .domain([d3.min(data, d => d.key), d3.max(data, d => d.key)])
+            .range([0, chartWidth]);
+      }
     }
 
-    if (yAxisLabel) {
-      g.append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", -margin.left)
-        .attr("x", -chartHeight / 2)
+    if (!yScale || typeof yScale.domain !== 'function') {
+      switch (type) {
+        case 'pie':
+          yScale = d3.scaleLinear()
+            .domain([0, d3.max(data, d => d.value)])
+            .range([0, chartHeight]);
+          break;
+        case 'row':
+          yScale = d3.scaleBand()
+            .domain(data.map(d => d.key))
+            .range([0, chartHeight])
+            .padding(0.1);
+          break;
+        default:
+          yScale = d3.scaleLinear()
+            .domain([0, d3.max(data, d => d.value)])
+            .range([chartHeight, 0]);
+      }
+    }
+
+    // Set range for scales if not already set
+    if (type !== 'pie') {
+      xScale.range([0, chartWidth]);
+      if (type === 'row') {
+        yScale.range([0, chartHeight]);
+      } else {
+        yScale.range([chartHeight, 0]);
+      }
+    }
+
+    // Add title
+    if (title) {
+      svg.append("text")
+        .attr("x", width / 2)
+        .attr("y", margin.top / 2)
         .attr("text-anchor", "middle")
-        .text(yAxisLabel);
+        .style("font-size", "16px")
+        .text(title);
+    }
+
+    // Add axes for non-pie charts
+    if (type !== 'pie') {
+      const xAxis = d3.axisBottom(xScale);
+      const yAxis = d3.axisLeft(yScale);
+
+      // Add x-axis
+      g.append("g")
+        .attr("class", "x-axis")
+        .attr("transform", `translate(0,${chartHeight})`)
+        .call(xAxis);
+
+      // Add y-axis
+      g.append("g")
+        .attr("class", "y-axis")
+        .call(yAxis);
+
+      // Add axis labels if provided
+      if (xAxisLabel) {
+        g.append("text")
+          .attr("x", chartWidth / 2)
+          .attr("y", chartHeight + margin.bottom)
+          .attr("text-anchor", "middle")
+          .text(xAxisLabel);
+      }
+
+      if (yAxisLabel) {
+        g.append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("y", -margin.left)
+          .attr("x", -chartHeight / 2)
+          .attr("text-anchor", "middle")
+          .text(yAxisLabel);
+      }
     }
 
     // Draw chart based on type
@@ -95,10 +157,11 @@ const D3Chart = ({
       case 'line':
         const line = d3.line()
           .x(d => xScale(d.key))
-          .y(d => yScale(d.value));
+          .y(d => yScale(d.value))
+          .defined(d => !isNaN(d.value));
 
         g.append("path")
-          .datum(data)
+          .datum(data.filter(d => !isNaN(d.value)))
           .attr("class", "line")
           .attr("fill", "none")
           .attr("stroke", "steelblue")
@@ -167,25 +230,27 @@ const D3Chart = ({
         break;
     }
 
-    // Add brush
-    const brush = d3.brushX()
-      .extent([[0, 0], [chartWidth, chartHeight]])
-      .on("end", event => {
-        if (!event.selection) {
-          dimension.filterAll();
-        } else {
-          const [x0, x1] = event.selection.map(xScale.invert);
-          dimension.filterRange([x0, x1]);
-        }
-        // Force update
-        dimension.group().all();
-      });
+    // Add brush for non-pie charts
+    if (type !== 'pie') {
+      const brush = d3.brushX()
+        .extent([[0, 0], [chartWidth, chartHeight]])
+        .on("end", event => {
+          if (!event?.selection) {
+            dimension.filterAll();
+          } else {
+            const [x0, x1] = event.selection.map(xScale.invert);
+            dimension.filterRange([x0, x1]);
+          }
+          // Force update
+          dimension.group().all();
+        });
 
-    g.append("g")
-      .attr("class", "brush")
-      .call(brush);
+      g.append("g")
+        .attr("class", "brush")
+        .call(brush);
+    }
 
-  }, [dimension, group, width, height, margin, type, xScale, yScale, title]);
+  }, [dimension, group, width, height, margin, type, xScaleProps, yScaleProps, title]);
 
   return <svg ref={svgRef} />;
 };

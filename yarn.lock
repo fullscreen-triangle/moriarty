@@ -2901,6 +2901,11 @@
   dependencies:
     defer-to-connect "^2.0.0"
 
+"@tensorflow-models/coco-ssd@^2.2.3":
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/@tensorflow-models/coco-ssd/-/coco-ssd-2.2.3.tgz#3825286569076d6788199c9cb89fb2fa31f7d2f2"
+  integrity sha512-iCLGktG/XhHbP6h2FWxqCKMp/Px0lCp6MZU1fjNhjDHeaWEC9G7S7cZrnPXsfH+NewCM53YShlrHnknxU3SQig==
+
 "@tippyjs/react@^4.2.0":
   version "4.2.6"
   resolved "https://registry.yarnpkg.com/@tippyjs/react/-/react-4.2.6.tgz#971677a599bf663f20bb1c60a62b9555b749cc71"
@@ -11981,10 +11986,10 @@ react-fit@^1.7.0:
     prop-types "^15.6.0"
     tiny-warning "^1.0.0"
 
-react-force-graph@^1.44.5:
-  version "1.44.5"
-  resolved "https://registry.yarnpkg.com/react-force-graph/-/react-force-graph-1.44.5.tgz#e05ede34fe4f3f2b33a6935d91f4f0524551c813"
-  integrity sha512-nOoJWkiGBaI/bt+LeQdLod4Avwz0GM1cOAnvl1S/KTrSLJOoE5abuK5hnkjV93o47cuJpCkHZ7SvAp7Ly3/NRw==
+react-force-graph@^1.44.6:
+  version "1.44.6"
+  resolved "https://registry.yarnpkg.com/react-force-graph/-/react-force-graph-1.44.6.tgz#c924bbae8720370e439d231781926fd80aeaeda0"
+  integrity sha512-tyLkY6V93OkbpZPpIBwdEpdWGr72wSiyPapFvRataOkdVpZ1Oq0CdZVdOEfau5qZ/9JRMi0/A3QcM4HbITajvA==
   dependencies:
     "3d-force-graph" "1"
     "3d-force-graph-ar" "1"
