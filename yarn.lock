@@ -11986,6 +11986,15 @@ react-fit@^1.7.0:
     prop-types "^15.6.0"
     tiny-warning "^1.0.0"
 
+react-force-graph-2d@^1.25.7:
+  version "1.25.7"
+  resolved "https://registry.yarnpkg.com/react-force-graph-2d/-/react-force-graph-2d-1.25.7.tgz#a21cd7e43931d27a97fa4a37b98fe3ce01dda074"
+  integrity sha512-WVNLK/z8RDq8kDhfEH/cZBGl64R3M761M3Xa3nXjXFW4mO3xUbQ7GG7dKV0brd4LSfjamGs2f1+UmXF4Tp8sGQ==
+  dependencies:
+    force-graph "1"
+    prop-types "15"
+    react-kapsule "2"
+
 react-force-graph@^1.44.6:
   version "1.44.6"
   resolved "https://registry.yarnpkg.com/react-force-graph/-/react-force-graph-1.44.6.tgz#c924bbae8720370e439d231781926fd80aeaeda0"

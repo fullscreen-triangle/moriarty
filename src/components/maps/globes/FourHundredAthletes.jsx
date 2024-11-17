@@ -1,44 +1,68 @@
-'use client'
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 import Globe from 'react-globe.gl';
 
-const FourHundredAthletes = ({ dataUrl }) => {
+const FourHundredAthletes = ({ width, height }) => {
   const globeEl = useRef();
-  const [athletes, setAthletes] = useState({});
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [altitude] = useState(0.1);
+  const [countries, setCountries] = useState({ features: [] });
+  const [athleteData, setAthleteData] = useState([]);
+  const [processedData, setProcessedData] = useState(new Map());
   const [transitionDuration] = useState(1000);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch(dataUrl);
-        if (!response.ok) {
-          throw new Error('Failed to fetch data');
-        }
-        const data = await response.json();
-        setAthletes(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+  // Calculate medal scores and athlete counts per country
+  const processAthleteData = (athletes) => {
+    const countryData = new Map();
+
+    athletes.forEach(athlete => {
+      const country = athlete.NOC;
+      if (!countryData.has(country)) {
+        countryData.set(country, {
+          athleteCount: 0,
+          medalScore: 0,
+          medals: { Gold: 0, Silver: 0, Bronze: 0 }
+        });
       }
-    };
 
-    fetchData();
-  }, [dataUrl]);
+      const data = countryData.get(country);
+      data.athleteCount++;
 
-  // Process athletes data to create a map of athletes per country
-  const getAthletesPerCountry = () => {
-    const countryMap = new Map();
-    Object.values(athletes).forEach(athlete => {
-      const noc = athlete.athlete_info.NOC;
-      countryMap.set(noc, (countryMap.get(noc) || 0) + 1);
+      // Calculate medal score (Gold=3, Silver=2, Bronze=1)
+      switch (athlete.Medal) {
+        case 'Gold':
+          data.medalScore += 3;
+          data.medals.Gold++;
+          break;
+        case 'Silver':
+          data.medalScore += 2;
+          data.medals.Silver++;
+          break;
+        case 'Bronze':
+          data.medalScore += 1;
+          data.medals.Bronze++;
+          break;
+        default:
+          break;
+      }
     });
-    return countryMap;
+
+    return countryData;
   };
+
+  useEffect(() => {
+    // Load GeoJSON data
+    fetch('/maps/world-geojson.json')
+      .then(res => res.json())
+      .then(geoData => {
+        setCountries(geoData);
+      });
+
+    // Load athlete data
+    fetch('/json/senior/four_hundred_athletes_parameters.json')
+      .then(res => res.json())
+      .then(athletes => {
+        setAthleteData(athletes);
+        setProcessedData(processAthleteData(athletes));
+      });
+  }, []);
 
   useEffect(() => {
     if (globeEl.current) {
@@ -49,104 +73,56 @@ const FourHundredAthletes = ({ dataUrl }) => {
     }
   }, []);
 
-  const getPolygonColor = (feat) => {
-    const athletesCount = getAthletesPerCountry();
-    const countryCode = feat.properties?.ISO_A2;
-    const count = athletesCount.get(countryCode) || 0;
+  // Calculate polygon height based on medal score
+  const getPolygonHeight = (feature) => {
+    const countryCode = feature.properties.ISO_A3;
+    const countryData = processedData.get(countryCode);
+    if (!countryData) return 0.1;
+    
+    // Normalize height based on medal score
+    return Math.max(0.1, countryData.medalScore * 0.01);
+  };
+
+  // Calculate polygon color based on athlete count
+  const getPolygonColor = (feature) => {
+    const countryCode = feature.properties.ISO_A3;
+    const countryData = processedData.get(countryCode);
+    if (!countryData) return 'rgba(200, 200, 200, 0.6)';
     
     // Color intensity based on athlete count
-    const intensity = Math.min(255, count * 50);
+    const intensity = Math.min(255, countryData.athleteCount * 5);
     return `rgba(${intensity}, 0, 0, 0.6)`;
   };
 
-  // Function to parse geometry string into GeoJSON format
-  const parseGeometry = (geometryStr) => {
-    try {
-      // Extract the coordinates from the MULTIPOLYGON string
-      const coordsStr = geometryStr.replace('MULTIPOLYGON ', '');
-      
-      // Parse the nested coordinate arrays
-      const parseCoordinates = (str) => {
-        return str
-          .replace(/[()]/g, '') // Remove parentheses
-          .split(',')
-          .map(coord => {
-            const [lng, lat] = coord.trim().split(' ');
-            return [parseFloat(lng), parseFloat(lat)];
-          });
-      };
+  // Create detailed label for each country
+  const getPolygonLabel = (feature) => {
+    const countryCode = feature.properties.ISO_A3;
+    const countryData = processedData.get(countryCode);
+    if (!countryData) return `<b>${feature.properties.ADMIN}</b>`;
 
-      // Split into polygons
-      const polygons = coordsStr
-        .match(/\(\([^)]+\)\)/g)
-        .map(poly => {
-          return [parseCoordinates(poly)];
-        });
-
-      return {
-        type: "MultiPolygon",
-        coordinates: polygons
-      };
-    } catch (err) {
-      console.error('Error parsing geometry:', err);
-      return null;
-    }
+    return `
+      <b>${feature.properties.ADMIN}</b><br />
+      Athletes: ${countryData.athleteCount}<br />
+      Medal Score: ${countryData.medalScore}<br />
+      Gold: ${countryData.medals.Gold}<br />
+      Silver: ${countryData.medals.Silver}<br />
+      Bronze: ${countryData.medals.Bronze}
+    `;
   };
 
-  if (loading) {
-    return (
-      <div className="w-full h-screen flex items-center justify-center">
-        <div className="text-lg">Loading globe data...</div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="w-full h-screen flex items-center justify-center">
-        <div className="text-lg text-red-500">Error: {error}</div>
-      </div>
-    );
-  }
-
-  // Extract all countries from the athletes data
-  const countryFeatures = Object.values(athletes)
-    .map(athlete => {
-      if (athlete.athlete_info.geometry) {
-        return {
-          type: "Feature",
-          properties: {
-            ISO_A2: athlete.athlete_info.ISO_A2,
-            ADMIN: athlete.athlete_info.ADMIN
-          },
-          geometry: parseGeometry(athlete.athlete_info.geometry)
-        };
-      }
-      return null;
-    })
-    .filter(Boolean);
-
   return (
-    <div className="container p-0 m-0 justify-center items-center resize  overflow-hidden">
+    <div className="h-screen w-full">
       <Globe
         ref={globeEl}
+        width={width}
+        height={height}
         globeImageUrl="//unpkg.com/three-globe/example/img/earth-dark.jpg"
         backgroundColor="rgba(0,0,0,0)"
-        polygonsData={countryFeatures}
-        polygonAltitude={altitude}
+        polygonsData={countries.features?.filter(d => d.properties.ISO_A2 !== 'AQ')}
+        polygonAltitude={getPolygonHeight}
         polygonCapColor={getPolygonColor}
         polygonSideColor={() => 'rgba(0, 100, 0, 0.15)'}
-        polygonStrokeColor={() => '#111'}
-        polygonLabel={({ properties: d }) => {
-          const athletesCount = getAthletesPerCountry();
-          const count = athletesCount.get(d?.ISO_A2) || 0;
-          return `
-            <div class="bg-black bg-opacity-75 p-2 rounded">
-              <b>${d?.ADMIN} (${d?.ISO_A2})</b><br />
-              Athletes: <i>${count}</i>
-            </div>
-          `;
-        }}
+        polygonLabel={getPolygonLabel}
         polygonsTransitionDuration={transitionDuration}
       />
     </div>
