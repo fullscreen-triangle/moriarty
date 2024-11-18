@@ -180,15 +180,46 @@ export default function Olympics() {
                     >
                        <Suspense fallback={<AnimatedLoader />}>
                             <section className="flex justify-center items-center w-full">
-                            <ResponsiveGlobeContainer>
-                                <ParisSankey />
-                            </ResponsiveGlobeContainer>
+                            <ParisSankey />
                             </section>
                         </Suspense>
                     </AnimatedSection>
 
                   </>
                 )}
+
+
+                <AnimatedSection 
+                  animation="fadeIn" 
+                  duration={1.2} 
+                  className="py-12"
+                >
+                <p className='font-medium mx-0 my-8 border-0 p-0 align-baseline justify-center items-center' style={{ lineHeight: '1.7' }}>
+                It then follows that the Olympics are not by any relevant means, an inclusive and ratified means of ranking or shortlisting 
+                champions in the fundamental sense. The only tenable solution to administering fair and thorough rankings involves applying 
+                some corrective measures to the already existing records. On the athlete level, using attributes such as age, height, weight
+                and all Olympic attendances and medals, six scores can be used to appropiately rank the table consisting of all participants 
+                with ratified Olympic senior men's 400m records. Comparison of medal winners based on final time inflates the rankings of all 
+                athletes participating in modern Olympics and could be solved by a comparison based on relative prestige of medal type, meaning,
+                a two time bronze winner remains subordinate to a single time silver medal winner. In order to reward athletes for their raw performance,
+                a composite score consisting of performance score, dominance score and peer relativity scores collectively accounts for granular 
+                evaluation of athletic ability, consistency of average finishing position, medals and performance relative to peers. 
+                An athlete who manages to sustain Olympic presense over an extended period of time, regardless of winning medals, 
+                should be rewarded for delivering sustained excellence over multiple Olympic cycles. The exclusion of Wayde van Niekerk from the 
+                South African 400m team was greeted with heaps of joy by Quincy Hall and Matthew Hudson-Smith, for the universe had handed them 
+                way more than they could have ever imagined, way better than anything they could have ever prayed for. A while ago, van Niekerk 
+                suffered an injury, which stopped being an injury and transformed itself into a life long nuiscence. Wayde van Nierkek forms part
+                of the Southern African Axis of Unlimited Greatness, together with Akine Simbini and Letsile Tebogo. They are the only three athletes
+                in Africa, and one of 7 in the whole world, who managed to a sub 10s 100m and sub 20s 200m in a single day. Of all Bolt's records,
+                only one has fallen, twice, thanks to van Niekerk and Tebogo, who pushed the 300m record to its physiological limit of 30s. 
+                With his heart stuck between a rock and sandpaper, van Niekerk opted to focus on the 200m, which is twice as short as 400m, 
+                allowing him to rely less on his dodgy tendons. If only the Olympics rewarded athletes who participate in numerous events, 
+                the final would have been a different story. If Wayde van Niekerk had been an athlete from the US or Switzerland, there is 
+                a high probability that more advanced and personalized medical procedures could have been carried out to assist in his rehabilitation. 
+                Inclusion of adjustment of ranks based on nationality is an unavoidable step as athletes face barriers on their journey to the Olympics
+                and ignoring those efforts will leave underpriviledged athletes with no incentive to excel.      
+                </p>
+                </AnimatedSection>
 
 
            
